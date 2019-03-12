@@ -1,86 +1,16 @@
-# Template for Python Script hosted on Heroku
+# Jee's Derp Dogs Twilio App
 
-This is small example of running your own bots with [Heroku](https://www.heroku.com/).
-You can run ANY python script with ANY dependaries.
+The purpose of this app is to send a text daily every morning so that I wake up to a happy text of derpy dogs from the Reddit, r/WhatsWrongWithYourDog. I wake up to a lot of work related e-mails or other e-mails, and it's always a happier day when waking up to derpy dogs.
 
-## Getting Started
+## Process of Development
 
-1. Download this repository. 
-2. Register on [Heroku](https://www.heroku.com/).
-3. Download and install [Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-python#set-up).
-4. Download and install [git](https://git-scm.com/downloads).
-5. Copy your script/ project to repository's folder.
-6. Replace "script.py" with path to your main executable file in "Procfile".
-   ```
-   worker: python script.py
-   ```
-   
-   If you are getting errors, you can try replace `worker` with `web`.
-   
-7. You may select your python version and runtime with "runtime.txt". Read how on [official heroku page](https://devcenter.heroku.com/articles/python-runtimes#selecting-a-runtime).
-8. If you are using non-standart modules, you must add them to requirements.txt
-   
-   To check which version of module you have on your computer, run pip freeze | grep MODULE_NAME in the terminal. 
-   
-   You will get line MODULE_NAME==MODULE_VERSION. Add this line to "requirements.txt".
-   
-   You should remove any unused modules from "requirements.txt".
-   
-   Repeat this process for all the modules you are planning to use.
-   
-9. Now open terminal(or do it other way, but i will explain how to do it in terminal on Ubuntu) and create git repository.   
-   ```
-   git init
-   ```
-   
-   Create heroku app.
-   
-   ```
-   heroku create
-   ```
-   
-   And push your code into heroku app.
-   
-   ```
-   git add .
-   git commit -m "initial commit"
-   git push heroku master
-   ```
+There are three parts to this app:
 
-10. Run you worker with following command.
-   ```
-   heroku ps:scale worker=1
-   ```
-   
-11. Now everything should be working. You can check your logs with.
+1. Scrape the subreddit page r/WhatsWrongWithYourDog to pull the top three posts.
+2. Use Twilio text messaging to send the top three posts to a phone number of your choice.
+3. Deploy to Heroku to automate the running of the script.
 
-   ```
-   heroku logs --tail
-   ```
-   
-12. You can open the URL where the script is deployed using the below command (if you are deploying site).
-   
-   ```
-   heroku open
-   ```
-   
-13. From now on you can use usual git commands(push, add, commit etc.) to update your app. Everytime you push heroku master your app gets redeployed.
+## Deployment Difficulties
 
-### Prerequisites
+One of the biggest difficulties that I ran into was that the Twilio module wasn't recognized by Python 3 when attempting to use this [template](https://github.com/michaelkrukov/heroku-python-script?fbclid=IwAR3fyuwLVi1JmF9NvWJZBRCcyZIGea5AzjBumPtbI9XieluJ2Bgtj1_l-Bs) to deploy to Heroku. I wasn't able to find any solutions.
 
-* [Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-python#set-up)
-* [git](https://git-scm.com/downloads)
-
-## Authors
-
-* @michaelkrukov - http://michaelkrukov.ru/
-
-## License
-
-This project is licensed under GNU General Public License v3.0 - see the [LICENCE.md](LICENCE.md) file for details
-
-## Acknowledgments
-
-* [Official guide to deploy app](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
-* [Official guide about worker](https://devcenter.heroku.com/articles/background-jobs-queueing)
-* [Guided "Simple twitter-bot with Python, Tweepy and Heroku"](http://briancaffey.github.io/2016/04/05/twitter-bot-tutorial.html)
